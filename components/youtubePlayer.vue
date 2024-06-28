@@ -1,10 +1,10 @@
-<!-- TODO:
+TODO:
 - play / pause button
 - show video duration
 - create cue
 - add video to cue func.
 - play next / prev
--  -->
+- 
 
 <script setup>
    const props = defineProps({
@@ -157,6 +157,7 @@
       padding-right: 80px;
       background-color: #020030bf;
       border-radius: 20px;
+      display: none;
    }
    .slider-container {
       display: flex;
