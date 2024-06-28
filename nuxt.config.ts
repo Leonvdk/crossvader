@@ -2,8 +2,7 @@
 export default defineNuxtConfig({
    runtimeConfig: {
       public: {
-         youtubeApiUrl:
-            "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=20&&type=video&key=AIzaSyAn-BLsTw7ezBLFm_SNNuDShEr-tDAVndQ&q=",
+         youtubeApiUrl: process.env.NUXT_YOUTUBE_API_URL
       },
    },
    devtools: { enabled: true },
