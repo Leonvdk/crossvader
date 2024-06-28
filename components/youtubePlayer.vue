@@ -1,6 +1,6 @@
 <script setup>
    const props = defineProps({
-      volume,
+      volume: { type: Number },
       videoId: { type: String, default: "rViZf2t7BKo?si=Ska5TBE71mvbaLl6" },
       playerId: { type: String, default: "playerA" },
    });
@@ -26,7 +26,6 @@
          height: "390",
          width: "640",
          videoId: props.videoId,
-         autoplay: 1,
          playerVars: {
             playsinline: 1,
          },
@@ -60,10 +59,9 @@
          player.setVolume(100);
          return;
       }
-      player.setVolume(volume*2);
+      player.setVolume(volume * 2);
    };
    let setVideoId = (videoId) => {
-      console.log("VideoId: ", videoId);
       player.loadVideoById(videoId);
    };
 

@@ -1,13 +1,11 @@
 <script setup>
-const { youtubeApiUrl } = useRuntimeConfig();
+const { youtubeApiUrl } = useRuntimeConfig().public;
 let searchQuery = ref("");
    let searchResults = ref([]);
-   // const searchUrl = ref(youtubeApiUrl)
-   const searchUrl = "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=20&&type=video&key=AIzaSyAn-BLsTw7ezBLFm_SNNuDShEr-tDAVndQ&q=";
-   console.log('Runtime config:', youtubeApiUrl)
+   const searchUrl = ref(youtubeApiUrl)
 
    const getVideos = async () => {
-      let response = await $fetch(searchUrl.concat(searchQuery.value), {});
+      let response = await $fetch(searchUrl.value.concat(searchQuery.value), {});
       searchResults.value = await response.items;
    };
 
@@ -201,6 +199,6 @@ let searchQuery = ref("");
       text-shadow: 1px 1px #000;
    }
    .result-button:hover {
-      background-color: #bf0ad6;
+      background-color: #bf0ad6a1;
    }
 </style>
