@@ -70,6 +70,7 @@
       background-size: 80%;
       background-position: 40% 0%;
       background-repeat: no-repeat;
+      min-height: 100vh;
    }
    h1 {
       text-align: center;
