@@ -26,9 +26,7 @@
    };
 </script>
 <template>
-   <h1>
-   </h1>
-   <h1> Mooie mannen House warming
+   <h1>Crossfader
    </h1>
    <div id="deck-container">
       <YoutubePlayer
@@ -60,7 +58,6 @@
    }
    html {
       background-color: #1E1451;
-      background-image: url(assets/images/retro-pixel-landscape-background.webp);
       background-size: 100%;
       background-repeat: no-repeat;
    }
