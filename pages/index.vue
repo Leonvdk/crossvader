@@ -3,12 +3,12 @@
    let videoPlayers = reactive({
       a: {
          id: "playerA",
-         videoId: "3MD8VDoBc30?si=HuJblfYy3ybjKWcB",
+         videoId: "Cl6Rz1Uvi2M?si=jOYGXe_CWxZzuIA9",
          volume: 30,
       },
       b: {
          id: "playerB",
-         videoId: "J7GY1Xg6X20?si=OD1qMQ0e4rkSIEH4",
+         videoId: "NMaEStimfLc?si=phvB8cFtK8pNUErd",
          volume: 70,
       },
    });
@@ -26,7 +26,9 @@
    };
 </script>
 <template>
-   <h1>Crossfader
+   <h1>
+   </h1>
+   <h1> Mooie mannen House warming
    </h1>
    <div id="deck-container">
       <YoutubePlayer
@@ -60,6 +62,13 @@
       background-color: #1E1451;
       background-image: url(assets/images/retro-pixel-landscape-background.webp);
       background-size: 100%;
+      background-repeat: no-repeat;
+   }
+   body {
+      background-color: #1E145100;
+      background-image: url(assets/images/Boys.png);
+      background-size: 80%;
+      background-position: 40% 0%;
       background-repeat: no-repeat;
    }
    h1 {
