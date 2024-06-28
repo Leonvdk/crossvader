@@ -58,17 +58,11 @@
    }
    html {
       background-color: #1E1451;
+      background-image: url(assets/images/retro-pixel-landscape-background.webp);
       background-size: 100%;
       background-repeat: no-repeat;
    }
-   body {
-      background-color: #1E145100;
-      background-image: url(assets/images/Boys.png);
-      background-size: 80%;
-      background-position: 40% 0%;
-      background-repeat: no-repeat;
-      min-height: 100vh;
-   }
+
    h1 {
       text-align: center;
       margin-bottom: 50px;
