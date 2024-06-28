@@ -1,3 +1,11 @@
+<!-- TODO:
+- play / pause button
+- show video duration
+- create cue
+- add video to cue func.
+- play next / prev
+-  -->
+
 <script setup>
    const props = defineProps({
       volume: { type: Number },
@@ -14,30 +22,33 @@
 
    watch(
       () => props.videoId,
-      (newVideoId, oldVideoId) => {
+      (newVideoId) => {
          setVideoId(newVideoId);
-         oldVideoId.concat(newVideoId);
       }
    );
 
    let player;
+   let playbackRate = ref(1);
+
    let onYouTubeIframeAPIReady = () => {
       player = new YT.Player(props.playerId, {
          height: "390",
          width: "640",
          videoId: props.videoId,
          playerVars: {
+            autoplay: 1,
             playsinline: 1,
+            controls: 0,
+            iv_load_policy: 3,
          },
          events: {
-            onReady: onPlayerReady,
+            onReady: (e) => {
+               e.target.playVideo();
+               e.target.setPlaybackRate(playbackRate.value);
+            },
             onStateChange: onPlayerStateChange,
          },
       });
-   };
-
-   let onPlayerReady = (event) => {
-      event.target.playVideo();
    };
 
    let done = false;
@@ -65,20 +76,41 @@
       player.loadVideoById(videoId);
    };
 
+   let setPlaybackRate = (event) => {
+      let newPlaybackRate = Number(event.target.value);
+      player.setPlaybackRate(newPlaybackRate);
+   };
+
    onMounted(() => {
       onYouTubeIframeAPIReady();
    });
 </script>
 <template>
-   <div class="player-container">
-      <img
-         src="assets/images/8bit-tv.png"
-         class="player-tv"
-      />
-      <div
-         :id="props.playerId"
-         class="player"
-      ></div>
+   <div class="player-sliders-container">
+      <div class="player-container">
+         <img
+            src="assets/images/8bit-tv.png"
+            class="player-tv"
+         />
+         <div
+            :id="props.playerId"
+            class="player"
+         ></div>
+      </div>
+      <div class="sliders-container">
+         <div class="slider-container">
+            <p class="slider-label">Pitch</p>
+            <input
+               class="playbackrate-slider"
+               v-model="playbackRate"
+               type="range"
+               min="0.5"
+               max="1.5"
+               step="0.02"
+               :oninput="(e) => setPlaybackRate(e)"
+            />
+         </div>
+      </div>
    </div>
 </template>
 
@@ -110,5 +142,37 @@
       border-radius: 15%;
       box-sizing: border-box;
       background-color: rgba(128, 128, 128, 0.117);
+   }
+   .player-sliders-container {
+      display: flex;
+      flex-direction: column;
+   }
+   .sliders-container {
+      height: 50px;
+      position: relative;
+      z-index: 4;
+      display: flex;
+      justify-content: flex-end;
+      padding: 30px 30px;
+      padding-right: 80px;
+      background-color: #020030bf;
+      border-radius: 20px;
+   }
+   .slider-container {
+      display: flex;
+      align-items: flex-start;
+      position: relative;
+   }
+   .slider-label {
+      margin: 10px;
+      font-family: Arial, Helvetica, sans-serif;
+      font-weight: 500;
+      color: #fff;
+      text-shadow: 1px 1px 3px #000;
+   }
+   .playbackrate-slider {
+      transform: scale(0.7) translate(-20%);
+      position: relative;
+      top: -30px;
    }
 </style>
