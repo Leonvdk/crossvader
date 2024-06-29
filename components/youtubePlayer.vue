@@ -157,7 +157,6 @@ TODO:
       padding-right: 80px;
       background-color: #020030bf;
       border-radius: 20px;
-      display: none;
    }
    .slider-container {
       display: flex;
