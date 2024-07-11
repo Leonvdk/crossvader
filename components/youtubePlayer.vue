@@ -173,6 +173,10 @@
       background-repeat: no-repeat;
       background-color: #9fb5c3;
       border: none;
+      transition: all .4s ease-out ;
+   }
+   .play-button:hover{
+      transform: scale(.95);
    }
    .player-sliders-container {
       display: flex;
