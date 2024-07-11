@@ -4,6 +4,8 @@
 - create cue
 - add video to cue func.
 - play next / prev
+- percentage / bpm next to sliders
+- reset slider button?
 -  -->
 
 <script setup>
@@ -157,6 +159,7 @@
       padding-right: 80px;
       background-color: #020030bf;
       border-radius: 20px;
+      border: 1px solid #ffffff5e;
    }
    .slider-container {
       display: flex;
