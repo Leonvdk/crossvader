@@ -59,8 +59,21 @@
          //does nothing for now
       }
    };
-   let stopVideo = () => {
-      player.stopVideo();
+   let playerStates = {
+      unstarted: -1,
+      ended: 0,
+      playing: 1,
+      paused: 2,
+      cued: 5
+
+   }
+   let toggleVideoPlay = () => {
+      console.log(player.getPlayerState() === 1)
+      if (player.getPlayerState() === playerStates.playing) {
+         player.pauseVideo();
+      } else{
+         player.playVideo();
+      }
    };
 
    let muteVideo = () => {
@@ -98,6 +111,7 @@
             :id="props.playerId"
             class="player"
          ></div>
+         <button @click="toggleVideoPlay" class="play-button"></button>
       </div>
       <div class="sliders-container">
          <div class="slider-container">
@@ -144,6 +158,21 @@
       border-radius: 15%;
       box-sizing: border-box;
       background-color: rgba(128, 128, 128, 0.117);
+   }
+   .play-button{
+      position: absolute;
+      border-radius: 100%;
+      right: 62px;
+      top: 128px;
+      height: 30px;
+      width: 30px;
+      cursor: pointer;
+      background-image: url(assets/images/play-pause.png);
+      background-size: 50%;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-color: #9fb5c3;
+      border: none;
    }
    .player-sliders-container {
       display: flex;
