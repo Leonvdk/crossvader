@@ -1,10 +1,11 @@
 <!-- TODO:
-- play / pause button
-- show video duration
++ play / pause button
+- show video duration as bar & in numbers
+- percentage / bpm next to sliders
+- live bpm reading next to sliders
 - create cue
 - add video to cue func.
 - play next / prev
-- percentage / bpm next to sliders
 - reset slider button?
 -  -->
 
