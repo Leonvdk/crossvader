@@ -118,7 +118,7 @@ let searchQuery = ref("");
       gap: 10px;
       margin-top: 20px;
       margin-bottom: 50px;
-      /* overflow: scroll; */
+
       padding: 20px 10px;
       border-radius: 10px;
       box-sizing: border-box;
