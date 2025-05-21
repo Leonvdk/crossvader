@@ -10,128 +10,119 @@
 -  -->
 
 <script setup>
-   const props = defineProps({
-      volume: { type: Number },
-      videoId: { type: String, default: "rViZf2t7BKo?si=Ska5TBE71mvbaLl6" },
-      playerId: { type: String, default: "playerA" },
-   });
+const props = defineProps({
+   volume: { type: Number },
+   videoId: { type: String, default: "rViZf2t7BKo?si=Ska5TBE71mvbaLl6" },
+   playerId: { type: String, default: "playerA" },
+});
 
-   watch(
-      () => props.volume,
-      (newVolume) => {
-         setVolume(newVolume);
-      }
-   );
-
-   watch(
-      () => props.videoId,
-      (newVideoId) => {
-         setVideoId(newVideoId);
-      }
-   );
-
-   let player;
-   let playbackRate = ref(1);
-
-   let onYouTubeIframeAPIReady = () => {
-      player = new YT.Player(props.playerId, {
-         height: "390",
-         width: "640",
-         videoId: props.videoId,
-         playerVars: {
-            autoplay: 1,
-            playsinline: 1,
-            controls: 0,
-            iv_load_policy: 3,
-         },
-         events: {
-            onReady: (e) => {
-               e.target.playVideo();
-               e.target.setPlaybackRate(playbackRate.value);
-            },
-            onStateChange: onPlayerStateChange,
-         },
-      });
-   };
-
-   let done = false;
-   let onPlayerStateChange = (event) => {
-      if (event.data == YT.PlayerState.PLAYING && !done) {
-         //does nothing for now
-      }
-   };
-   let playerStates = {
-      unstarted: -1,
-      ended: 0,
-      playing: 1,
-      paused: 2,
-      cued: 5
-
+watch(
+   () => props.volume,
+   (newVolume) => {
+      setVolume(newVolume);
    }
-   let toggleVideoPlay = () => {
-      console.log(player.getPlayerState() === 1)
-      if (player.getPlayerState() === playerStates.playing) {
-         player.pauseVideo();
-      } else{
-         player.playVideo();
-      }
-   };
+);
 
-   let muteVideo = () => {
-      player.isMuted() ? player.unMute() : player.mute();
-   };
+watch(
+   () => props.videoId,
+   (newVideoId) => {
+      setVideoId(newVideoId);
+   }
+);
 
-   let setVolume = (volume) => {
-      if (volume > 100) {
-         player.setVolume(100);
-         return;
-      }
-      player.setVolume(volume * 2);
-   };
-   let setVideoId = (videoId) => {
-      player.loadVideoById(videoId);
-   };
+let player;
+let playbackRate = ref(1);
 
-   let setPlaybackRate = (event) => {
-      let newPlaybackRate = Number(event.target.value);
-      player.setPlaybackRate(newPlaybackRate);
-   };
-
-   onMounted(() => {
-      onYouTubeIframeAPIReady();
+let onYouTubeIframeAPIReady = () => {
+   player = new YT.Player(props.playerId, {
+      height: "390",
+      width: "640",
+      videoId: props.videoId,
+      playerVars: {
+         autoplay: 1,
+         playsinline: 1,
+         controls: 0,
+         iv_load_policy: 3,
+      },
+      events: {
+         onReady: (e) => {
+            e.target.playVideo();
+            e.target.setPlaybackRate(playbackRate.value);
+         },
+         onStateChange: onPlayerStateChange,
+      },
    });
+};
+
+let done = false;
+let onPlayerStateChange = (event) => {
+   if (event.data == YT.PlayerState.PLAYING && !done) {
+      //does nothing for now
+   }
+};
+let playerStates = {
+   unstarted: -1,
+   ended: 0,
+   playing: 1,
+   paused: 2,
+   cued: 5
+
+}
+let toggleVideoPlay = () => {
+   console.log(player.getPlayerState() === 1)
+   if (player.getPlayerState() === playerStates.playing) {
+      player.pauseVideo();
+   } else {
+      player.playVideo();
+   }
+};
+
+let muteVideo = () => {
+   player.isMuted() ? player.unMute() : player.mute();
+};
+
+let setVolume = (volume) => {
+   if (volume > 100) {
+      player.setVolume(100);
+      return;
+   }
+   player.setVolume(volume * 2);
+};
+let setVideoId = (videoId) => {
+   player.loadVideoById(videoId);
+};
+
+let setPlaybackRate = (event) => {
+   let newPlaybackRate = Number(event.target.value);
+   player.setPlaybackRate(newPlaybackRate);
+};
+
+onMounted(() => {
+   onYouTubeIframeAPIReady();
+});
 </script>
 <template>
    <div class="player-sliders-container">
       <div class="player-container">
-         <img
-            src="assets/images/8bit-tv.png"
-            class="player-tv"
-         />
-         <div
-            :id="props.playerId"
-            class="player"
-         ></div>
+         <img src="assets/images/8bit-tv.png" class="player-tv" />
+         <div :id="props.playerId" class="player"></div>
          <button @click="toggleVideoPlay" class="play-button"></button>
       </div>
       <div class="sliders-container">
          <div class="slider-container">
             <p class="slider-label">Pitch</p>
-            <input
-               class="playbackrate-slider"
-               v-model="playbackRate"
-               type="range"
-               min="0.5"
-               max="1.5"
-               step="0.02"
-               :oninput="(e) => setPlaybackRate(e)"
-            />
+            <input class="playbackrate-slider" v-model="playbackRate" type="range" min="0.5" max="1.5" step="0.02"
+               :oninput="(e) => setPlaybackRate(e)" />
          </div>
       </div>
    </div>
 </template>
 
 <style>
+.player-sliders-container {
+   display: flex;
+   flex-direction: column;
+
    .player-container {
       height: 300px;
       width: 300px;
@@ -140,76 +131,89 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      /* border-radius: 40px; */
-      /* background-color: #525252; */
+
+      .player-tv {
+         width: 100%;
+         height: 100%;
+         z-index: -1;
+         position: absolute;
+      }
+
+      .player {
+         position: absolute;
+         height: 152px;
+         width: 46%;
+         max-width: 160px;
+         left: 14%;
+         top: 118px;
+         border-radius: 15%;
+         box-sizing: border-box;
+         background-color: rgba(128, 128, 128, 0.117);
+      }
+
+      .play-button {
+         filter: grayscale(100%) contrast(100%) brightness(150%);
+         position: absolute;
+         border-radius: 100%;
+         right: 62px;
+         top: 128px;
+         height: 30px;
+         width: 30px;
+         cursor: pointer;
+         background-image: url(assets/images/play-pause.png);
+         background-size: 50%;
+         background-position: center;
+         background-repeat: no-repeat;
+         background-color: #9fb5c3;
+         border: none;
+         transition: all .4s ease-out;
+
+         &:hover {
+            transform: scale(1.05);
+         }
+      }
    }
-   .player-tv {
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-      position: absolute;
-   }
-   .player {
-      position: absolute;
-      height: 152px;
-      width: 46%;
-      max-width: 160px;
-      left: 14%;
-      top: 118px;
-      border-radius: 15%;
-      box-sizing: border-box;
-      background-color: rgba(128, 128, 128, 0.117);
-   }
-   .play-button{
-      position: absolute;
-      border-radius: 100%;
-      right: 62px;
-      top: 128px;
-      height: 30px;
-      width: 30px;
-      cursor: pointer;
-      background-image: url(assets/images/play-pause.png);
-      background-size: 50%;
-      background-position: center;
-      background-repeat: no-repeat;
-      background-color: #9fb5c3;
-      border: none;
-      transition: all .4s ease-out ;
-   }
-   .play-button:hover{
-      transform: scale(.95);
-   }
-   .player-sliders-container {
-      display: flex;
-      flex-direction: column;
-   }
+
    .sliders-container {
       height: 50px;
       position: relative;
       z-index: 4;
-      display: flex;
+      display: none;
       justify-content: flex-end;
       padding: 30px 30px;
       padding-right: 80px;
       background-color: #020030bf;
       border-radius: 20px;
       border: 1px solid #ffffff5e;
+
+      .slider-container {
+         display: flex;
+         align-items: flex-start;
+         position: relative;
+
+         .slider-label {
+            margin: 10px;
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: 500;
+            color: #fff;
+            text-shadow: 1px 1px 3px #000;
+         }
+
+         .playbackrate-slider {
+            transform: scale(0.7) translate(-20%);
+            position: relative;
+            top: -30px;
+         }
+      }
    }
-   .slider-container {
-      display: flex;
-      align-items: flex-start;
-      position: relative;
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+   .player-sliders-container {
+      .sliders-container {
+         display: flex;
+      }
    }
-   .slider-label {
-      margin: 10px;
-      font-family: Arial, Helvetica, sans-serif;
-      font-weight: 500;
-      color: #fff;
-      text-shadow: 1px 1px 3px #000;
-   }
-   .playbackrate-slider {
-      transform: scale(0.7) translate(-20%);
-      position: relative;
-      top: -30px;
-   }
+}
 </style>
