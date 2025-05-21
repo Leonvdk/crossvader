@@ -1,6 +1,6 @@
 <script setup>
    useHead({
-      title: "Crossvader",
+      title: "Crossfader",
       script: [
          { src: "https://www.youtube.com/iframe_api" },
       ],
