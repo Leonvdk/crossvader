@@ -3,12 +3,12 @@ let sliderValue = ref(70);
 let videoPlayers = reactive({
    a: {
       id: "playerA",
-      videoId: "",
+      videoId: "o2ojpMcN27U",
       volume: 30,
    },
    b: {
       id: "playerB",
-      videoId: "",
+      videoId: none,
       volume: 70,
    },
 });
