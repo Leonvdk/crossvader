@@ -8,7 +8,7 @@ let videoPlayers = reactive({
    },
    b: {
       id: "playerB",
-      videoId: none,
+      videoId: "",
       volume: 70,
    },
 });
