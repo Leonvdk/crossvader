@@ -100,7 +100,12 @@ let initPlayer = () => {
       events: {
          onReady: (e) => {
             if (vid) {
+               e.target.mute();
                e.target.playVideo();
+               setTimeout(() => {
+                  e.target.unMute();
+                  applyVolume(computedVolume.value);
+               }, 500);
             }
             e.target.setPlaybackRate(playbackRate.value);
             applyVolume(computedVolume.value);
@@ -112,6 +117,7 @@ let initPlayer = () => {
    if (vid) {
       opts.videoId = vid;
       opts.playerVars.autoplay = 1;
+      opts.playerVars.mute = 1;
    }
    player = new YT.Player(props.playerId, opts);
 };
