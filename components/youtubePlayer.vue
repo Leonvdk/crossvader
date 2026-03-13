@@ -399,56 +399,83 @@ onUnmounted(() => {
    }
 
    .play-button {
-      filter: grayscale(100%) contrast(100%) brightness(150%);
       position: absolute;
-      border-radius: 100%;
-      right: 55px;
-      top: 118px;
-      height: 44px;
-      width: 44px;
+      right: 60px;
+      top: 125px;
+      height: 32px;
+      width: 32px;
       cursor: pointer;
       background-image: url(assets/images/play-pause.png);
       background-size: 45%;
       background-position: center;
       background-repeat: no-repeat;
-      background-color: #9fb5c3;
+      background-color: #2a1d5c;
       border: none;
-      transition: background-color 0.2s ease-out;
+      border-radius: 0;
+      box-shadow:
+         -2px 0 0 0 #6a5aad,
+         2px 0 0 0 #2a1d3a,
+         0 -2px 0 0 #6a5aad,
+         0 2px 0 0 #2a1d3a;
+      image-rendering: pixelated;
       display: none;
+      filter: grayscale(100%) brightness(150%);
 
       &:active {
-         transform: scale(0.95);
+         box-shadow:
+            -2px 0 0 0 #2a1d3a,
+            2px 0 0 0 #6a5aad,
+            0 -2px 0 0 #2a1d3a,
+            0 2px 0 0 #6a5aad;
       }
 
       &.playing {
-         filter: grayscale(0%) contrast(100%) brightness(100%);
-         background-color: #7ad49e;
+         background-color: #0a6e5c;
+         box-shadow:
+            -2px 0 0 0 #0ad7a7,
+            2px 0 0 0 #043d33,
+            0 -2px 0 0 #0ad7a7,
+            0 2px 0 0 #043d33;
+         filter: none;
       }
    }
 
    .mute-button {
       position: absolute;
-      border-radius: 100%;
-      right: 55px;
-      top: 168px;
-      height: 44px;
-      width: 44px;
+      right: 60px;
+      top: 175px;
+      height: 32px;
+      width: 32px;
       cursor: pointer;
-      background-color: #9fb5c3;
+      background-color: #2a1d5c;
       border: none;
+      border-radius: 0;
+      box-shadow:
+         -2px 0 0 0 #6a5aad,
+         2px 0 0 0 #2a1d3a,
+         0 -2px 0 0 #6a5aad,
+         0 2px 0 0 #2a1d3a;
       font-family: "Pixeloid", Arial, Helvetica, sans-serif;
-      font-size: 0.5rem;
-      color: #333;
+      font-size: 0.4rem;
+      color: #e2e2e2;
       font-weight: 700;
-      transition: background-color 0.2s ease-out;
       display: none;
 
       &:active {
-         transform: scale(0.95);
+         box-shadow:
+            -2px 0 0 0 #2a1d3a,
+            2px 0 0 0 #6a5aad,
+            0 -2px 0 0 #2a1d3a,
+            0 2px 0 0 #6a5aad;
       }
 
       &.muted {
-         background-color: #d44a4a;
+         background-color: #6e1a1a;
+         box-shadow:
+            -2px 0 0 0 #d44a4a,
+            2px 0 0 0 #3a0a0a,
+            0 -2px 0 0 #d44a4a,
+            0 2px 0 0 #3a0a0a;
          color: #fff;
       }
    }
