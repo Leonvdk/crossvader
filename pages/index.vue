@@ -17,13 +17,13 @@ const curveLabels = {
 
 let deckA = reactive({
    id: "playerA",
-   videoId: "Cl6Rz1Uvi2M",
+   videoId: "oAZBKlVSLkU",
    title: "",
    queue: [],
 });
 let deckB = reactive({
    id: "playerB",
-   videoId: "NMaEStimfLc",
+   videoId: "",
    title: "",
    queue: [],
 });

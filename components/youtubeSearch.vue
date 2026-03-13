@@ -64,22 +64,38 @@ let addToQueue = (videoId, playerId, title) => {
       height: 50px;
       box-sizing: border-box;
       padding: 7px 16px;
-      color: #ffffffd7;
-      background-color: #2d206dc3;
-      border: 1px solid #ffffff50;
-      border-radius: 10px;
-      font-family: Arial, Helvetica, sans-serif;
-      font-size: 1rem;
+      color: #e0fff0;
+      background-color: #0a0a2a;
+      border: none;
+      border-radius: 0;
+      box-shadow:
+         -3px 0 0 0 #1a1040,
+         3px 0 0 0 #8a7abf,
+         0 -3px 0 0 #1a1040,
+         0 3px 0 0 #8a7abf,
+         inset 0 2px 8px rgba(0, 0, 0, 0.6),
+         inset 0 0 20px rgba(10, 5, 30, 0.5);
+      font-family: "Pixeloid", Arial, Helvetica, sans-serif;
+      font-size: 0.6rem;
+      text-shadow: 0 0 4px #0ad7a7;
 
       &::placeholder {
-         font-family: Arial, Helvetica, sans-serif;
-         font-size: 1rem;
-         color: #9d9d9d;
+         font-family: "Pixeloid", Arial, Helvetica, sans-serif;
+         font-size: 0.6rem;
+         color: #0ad7a780;
+         text-shadow: 0 0 3px #0ad7a740;
       }
 
       &:focus-visible {
-         outline: 2px solid #fff;
-         border: 1px solid #ffffff00;
+         outline: none;
+         box-shadow:
+            -3px 0 0 0 #0a0a20,
+            3px 0 0 0 #c10ad7,
+            0 -3px 0 0 #0a0a20,
+            0 3px 0 0 #c10ad7,
+            inset 0 2px 8px rgba(0, 0, 0, 0.6),
+            inset 0 0 20px rgba(10, 5, 30, 0.5);
+         text-shadow: 0 0 6px #0ad7a7;
       }
    }
 
@@ -89,21 +105,29 @@ let addToQueue = (videoId, playerId, title) => {
       padding: 7px 25px;
       color: #fff;
       background-color: #1a3d5c;
-      border: 2px solid;
-      border-color: #3a8abf #0a1d3a #0a1d3a #3a8abf;
-      border-radius: 3px;
-      font-family: Arial, Helvetica, sans-serif;
-      font-size: 1rem;
+      border: none;
+      border-radius: 0;
+      box-shadow:
+         -3px 0 0 0 #3a8abf,
+         3px 0 0 0 #0a1d3a,
+         0 -3px 0 0 #3a8abf,
+         0 3px 0 0 #0a1d3a;
+      font-family: "Pixeloid", Arial, Helvetica, sans-serif;
+      font-size: 0.6rem;
       cursor: pointer;
+      letter-spacing: 1px;
 
       &:focus-visible {
          outline: none;
-         border-color: #5abaef #0a1d3a #0a1d3a #5abaef;
       }
 
       &:active {
          background-color: #2a5d8c;
-         border-color: #0a1d3a #3a8abf #3a8abf #0a1d3a;
+         box-shadow:
+            -3px 0 0 0 #0a1d3a,
+            3px 0 0 0 #3a8abf,
+            0 -3px 0 0 #0a1d3a,
+            0 3px 0 0 #3a8abf;
       }
    }
 }
@@ -167,31 +191,49 @@ let addToQueue = (videoId, playerId, title) => {
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: #bdbdbd99;
-            border: 2px solid #000000;
+            background-color: #2a1d5c;
+            border: none;
+            border-radius: 0;
             margin: 0;
-            font-family: Arial, Helvetica, sans-serif;
-            font-weight: 600;
-            font-size: 0.85rem;
-            color: white;
+            box-shadow:
+               -2px 0 0 0 #6a5aad,
+               2px 0 0 0 #2a1d3a,
+               0 -2px 0 0 #6a5aad,
+               0 2px 0 0 #2a1d3a;
+            font-family: "Pixeloid", Arial, Helvetica, sans-serif;
+            font-size: 0.5rem;
+            letter-spacing: 1px;
+            color: #e2e2e2;
             width: 100%;
             flex: 1;
             min-height: 44px;
-            transition: background-color 0.2s ease-out;
-            border-radius: 10px;
-            text-shadow: 1px 1px #000;
 
             &:active {
-               background-color: #bf0ad6a1;
+               background-color: #8a0a97;
+               box-shadow:
+                  -2px 0 0 0 #2a1d3a,
+                  2px 0 0 0 #6a5aad,
+                  0 -2px 0 0 #2a1d3a,
+                  0 2px 0 0 #6a5aad;
             }
          }
 
          .queue-button {
-            font-size: 0.7rem;
-            background-color: #2d206d99;
+            font-size: 0.4rem;
+            background-color: #1a3d5c;
+            box-shadow:
+               -2px 0 0 0 #3a8abf,
+               2px 0 0 0 #0a1d3a,
+               0 -2px 0 0 #3a8abf,
+               0 2px 0 0 #0a1d3a;
 
             &:active {
-               background-color: #0a9768a1;
+               background-color: #0a6e5c;
+               box-shadow:
+                  -2px 0 0 0 #0a1d3a,
+                  2px 0 0 0 #3a8abf,
+                  0 -2px 0 0 #0a1d3a,
+                  0 2px 0 0 #3a8abf;
             }
          }
       }
@@ -208,17 +250,16 @@ let addToQueue = (videoId, playerId, title) => {
       }
 
       .result-button:hover {
-         background-color: #bf0ad6a1;
+         background-color: #8a0a97;
       }
 
       .queue-button:hover {
-         background-color: #0a9768a1;
+         background-color: #0a6e5c;
       }
    }
 
    .search-button:hover {
-      transform: scale(1.04);
-      box-shadow: 1px 1px 5px #ffffff55;
+      background-color: #2a5d8c;
    }
 }
 
@@ -228,15 +269,15 @@ let addToQueue = (videoId, playerId, title) => {
 
       .search-input {
          height: 50px;
-         font-size: 1.3rem;
+         font-size: 0.7rem;
 
          &::placeholder {
-            font-size: 1.3rem;
+            font-size: 0.7rem;
          }
       }
 
       .search-button {
-         font-size: 1.3rem;
+         font-size: 0.7rem;
       }
    }
 }

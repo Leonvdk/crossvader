@@ -1,7 +1,7 @@
 <script setup>
 const props = defineProps({
    volume: { type: Number, default: 100 },
-   videoId: { type: String, default: "rViZf2t7BKo" },
+   videoId: { type: String, default: "" },
    playerId: { type: String, default: "playerA" },
    deckLabel: { type: String, default: "A" },
 });
@@ -51,7 +51,10 @@ watch(playbackRate, (newRate) => {
 watch(
    () => props.videoId,
    (newVideoId) => {
-      if (player && player.loadVideoById) {
+      if (!newVideoId) return;
+      if (!player) {
+         initPlayer();
+      } else if (player.loadVideoById) {
          player.loadVideoById(cleanVideoId(newVideoId));
          cuePoints.value = [null, null, null, null];
          loopEnabled.value = false;
@@ -66,26 +69,32 @@ watch(
 let cleanVideoId = (id) => id ? id.split("?")[0].split("&")[0] : id;
 
 let initPlayer = () => {
-   player = new YT.Player(props.playerId, {
+   let vid = cleanVideoId(props.videoId);
+   let opts = {
       height: "390",
       width: "640",
-      videoId: cleanVideoId(props.videoId),
       playerVars: {
-         autoplay: 1,
          playsinline: 1,
          controls: 0,
          iv_load_policy: 3,
       },
       events: {
          onReady: (e) => {
-            e.target.playVideo();
+            if (vid) {
+               e.target.playVideo();
+            }
             e.target.setPlaybackRate(playbackRate.value);
             applyVolume(computedVolume.value);
             startProgressTracking();
          },
          onStateChange: onPlayerStateChange,
       },
-   });
+   };
+   if (vid) {
+      opts.videoId = vid;
+      opts.playerVars.autoplay = 1;
+   }
+   player = new YT.Player(props.playerId, opts);
 };
 
 let onPlayerStateChange = (event) => {
@@ -235,7 +244,9 @@ defineExpose({
 });
 
 onMounted(() => {
-   initPlayer();
+   if (props.videoId) {
+      initPlayer();
+   }
 });
 
 onUnmounted(() => {
