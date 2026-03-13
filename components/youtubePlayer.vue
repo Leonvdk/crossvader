@@ -52,8 +52,9 @@ watch(
    () => props.videoId,
    (newVideoId) => {
       if (!newVideoId) return;
+      if (typeof window === "undefined") return;
       if (!player) {
-         initPlayer();
+         nextTick(() => initPlayer());
       } else if (player.loadVideoById) {
          player.loadVideoById(cleanVideoId(newVideoId));
          cuePoints.value = [null, null, null, null];
@@ -67,8 +68,29 @@ watch(
 );
 
 let cleanVideoId = (id) => id ? id.split("?")[0].split("&")[0] : id;
+let ytReady = ref(false);
 
-let initPlayer = () => {
+if (typeof window !== "undefined") {
+   if (window._ytApiReady) {
+      ytReady.value = true;
+   }
+   if (!window._ytApiCallbacks) {
+      window._ytApiCallbacks = [];
+      let prevCallback = window.onYouTubeIframeAPIReady;
+      window.onYouTubeIframeAPIReady = () => {
+         window._ytApiReady = true;
+         if (prevCallback) prevCallback();
+         window._ytApiCallbacks.forEach((cb) => cb());
+         window._ytApiCallbacks = [];
+      };
+   }
+}
+
+let createPlayer = () => {
+   if (player) return;
+   let el = document.getElementById(props.playerId);
+   if (!el) return;
+
    let vid = cleanVideoId(props.videoId);
    let opts = {
       height: "390",
@@ -95,6 +117,18 @@ let initPlayer = () => {
       opts.playerVars.autoplay = 1;
    }
    player = new YT.Player(props.playerId, opts);
+};
+
+let initPlayer = () => {
+   if (player) return;
+   if (typeof window === "undefined") return;
+   if (window._ytApiReady) {
+      createPlayer();
+   } else {
+      window._ytApiCallbacks.push(() => {
+         nextTick(() => createPlayer());
+      });
+   }
 };
 
 let onPlayerStateChange = (event) => {
@@ -245,7 +279,7 @@ defineExpose({
 
 onMounted(() => {
    if (props.videoId) {
-      initPlayer();
+      nextTick(() => initPlayer());
    }
 });
 
