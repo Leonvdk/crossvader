@@ -68,28 +68,25 @@ watch(
 );
 
 let cleanVideoId = (id) => id ? id.split("?")[0].split("&")[0] : id;
-let ytReady = ref(false);
 
-if (typeof window !== "undefined") {
-   if (window._ytApiReady) {
-      ytReady.value = true;
-   }
-   if (!window._ytApiCallbacks) {
-      window._ytApiCallbacks = [];
-      let prevCallback = window.onYouTubeIframeAPIReady;
-      window.onYouTubeIframeAPIReady = () => {
-         window._ytApiReady = true;
-         if (prevCallback) prevCallback();
-         window._ytApiCallbacks.forEach((cb) => cb());
-         window._ytApiCallbacks = [];
-      };
-   }
-}
+let isYTReady = () => typeof YT !== "undefined" && YT.loaded === 1;
 
-let createPlayer = () => {
+let initPlayer = () => {
    if (player) return;
+   if (typeof window === "undefined") return;
+
    let el = document.getElementById(props.playerId);
    if (!el) return;
+
+   if (!isYTReady()) {
+      let check = setInterval(() => {
+         if (isYTReady()) {
+            clearInterval(check);
+            initPlayer();
+         }
+      }, 200);
+      return;
+   }
 
    let vid = cleanVideoId(props.videoId);
    let opts = {
@@ -117,18 +114,6 @@ let createPlayer = () => {
       opts.playerVars.autoplay = 1;
    }
    player = new YT.Player(props.playerId, opts);
-};
-
-let initPlayer = () => {
-   if (player) return;
-   if (typeof window === "undefined") return;
-   if (window._ytApiReady) {
-      createPlayer();
-   } else {
-      window._ytApiCallbacks.push(() => {
-         nextTick(() => createPlayer());
-      });
-   }
 };
 
 let onPlayerStateChange = (event) => {
